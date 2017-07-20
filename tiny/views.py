@@ -6,6 +6,10 @@ from django.http import HttpResponseRedirect
 from .models import Url
 
 def init(request):
+    if request.session.has_key("has_url"):
+        url = request.session.get("has_url")
+        del request.session['has_url']
+        return render(request, "tiny/index.html", locals())
     return render(request, "tiny/index.html", {})
 
 def make_url(request):
@@ -17,6 +21,7 @@ def make_url(request):
         except Url.DoesNotExist:
             url = Url.objects.create(url_uuid = url_uuid, url_site = url_site)
             url.save()
+            request.session["has_url"] = url.url_uuid
     return HttpResponseRedirect("/")
 
 def redirect_url(request, url_id=None):
