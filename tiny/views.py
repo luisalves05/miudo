@@ -18,3 +18,11 @@ def make_url(request):
             url = Url.objects.create(url_uuid = url_uuid, url_site = url_site)
             url.save()
     return HttpResponseRedirect("/")
+
+def redirect_url(request, url_id=None):
+    try:
+        url = Url.objects.get(url_uuid = url_id)
+        return HttpResponseRedirect(url.url_site)
+    except Url.DoesNotExist:
+        pass
+    return HttpResponseRedirect("/")
