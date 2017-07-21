@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 
 from .models import Url
 
-def init(request):
+def index(request):
     if request.session.has_key("has_url"):
         url = request.session.get("has_url")
         del request.session['has_url']
@@ -18,6 +18,9 @@ def make_url(request):
         url_uuid = str(uuid.uuid4())[0:8]
         try:
             url = Url.objects.get(url_uuid = url_uuid)
+            while url:
+                url_uuid = str(uuid.uuid4())[0:8]
+                url = Url.objects.get(url_uuid = url_uuid)
         except Url.DoesNotExist:
             url = Url.objects.create(url_uuid = url_uuid, url_site = url_site)
             url.save()
@@ -27,7 +30,6 @@ def make_url(request):
 def redirect_url(request, url_id=None):
     try:
         url = Url.objects.get(url_uuid = url_id)
-        return HttpResponseRedirect(url.url_site)
     except Url.DoesNotExist:
-        pass
-    return HttpResponseRedirect("/")
+        return render(request, "tiny/page_not_found.html", {})
+    return HttpResponseRedirect(url.url_site) 
