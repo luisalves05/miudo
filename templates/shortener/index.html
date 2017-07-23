@@ -1,9 +1,9 @@
-{% extends 'tiny/header.html' %}
+{% extends 'shortener/header.html' %}
 
 {% block content %}
 <div class="col-lg-3"></div>
 <div class="col-lg-6">
-    <h2 style="font-family: 'Josefin Sans', sans-serif" >Welcome to TinyURL</h2>
+    <h2 style="font-family: 'Josefin Sans', sans-serif" >Welcome to ShortenerURL</h2>
     <form action="make_url/" method="post" data-toggle="validator">
         {% csrf_token %}
         <fieldset>

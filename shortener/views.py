@@ -9,8 +9,8 @@ def index(request):
     if request.session.has_key("has_url"):
         url = request.session.get("has_url")
         del request.session['has_url']
-        return render(request, "tiny/index.html", locals())
-    return render(request, "tiny/index.html", {})
+        return render(request, "shortener/index.html", locals())
+    return render(request, "shortener/index.html", {})
 
 def make_url(request):
     if request.method == "POST":
@@ -33,5 +33,5 @@ def redirect_url(request, url_id=None):
         url.url_clicked = url.url_clicked + 1
         url.save()
     except Url.DoesNotExist:
-        return render(request, "tiny/page_not_found.html", {})
+        return render(request, "shortener/page_not_found.html", {})
     return HttpResponseRedirect(url.url_site) 
