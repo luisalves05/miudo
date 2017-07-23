@@ -15,21 +15,23 @@ def index(request):
 def make_url(request):
     if request.method == "POST":
         url_site = request.POST['url']
-        url_uuid = str(uuid.uuid4())[0:8]
+        url_id = str(uuid.uuid4())[0:8]
         try:
-            url = Url.objects.get(url_uuid = url_uuid)
+            url = Url.objects.get(url_id = url_id)
             while url:
-                url_uuid = str(uuid.uuid4())[0:8]
-                url = Url.objects.get(url_uuid = url_uuid)
+                url_id = str(uuid.uuid4())[0:8]
+                url = Url.objects.get(url_id = url_id)
         except Url.DoesNotExist:
-            url = Url.objects.create(url_uuid = url_uuid, url_site = url_site)
+            url = Url.objects.create(url_id = url_id, url_site = url_site)
             url.save()
-            request.session["has_url"] = url.url_uuid
+            request.session["has_url"] = url.url_id
     return HttpResponseRedirect("/")
 
 def redirect_url(request, url_id=None):
     try:
-        url = Url.objects.get(url_uuid = url_id)
+        url = Url.objects.get(url_id = url_id)
+        url.url_clicked = url.url_clicked + 1
+        url.save()
     except Url.DoesNotExist:
         return render(request, "tiny/page_not_found.html", {})
     return HttpResponseRedirect(url.url_site) 
