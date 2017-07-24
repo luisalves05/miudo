@@ -33,5 +33,5 @@ def redirect_url(request, url_id=None):
         url.url_clicked = url.url_clicked + 1
         url.save()
     except Url.DoesNotExist:
-        return render(request, "shortener/page_not_found.html", {})
+        return render(request, "base/page_not_found.html", {})
     return HttpResponseRedirect(url.url_site) 
