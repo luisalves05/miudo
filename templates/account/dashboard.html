@@ -1,0 +1,8 @@
+{% extends 'base/header.html' %}
+
+{% block title %} User's Dashborad {% endblock %}
+
+{% block content %}
+    <h1>Dashboard</h1>
+    <p>Welcome to your dashboard: {{ request.user.fist_name }}</p>
+{% endblock %}
