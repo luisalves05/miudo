@@ -2,15 +2,27 @@
 
 {% block content %}
 <div class="container">
+    
+    {% if form.errors %}
+    <legend>
+        <center>
+            <h2 style="font-family: 'Josefin Sans', sans-serif"><b>Your username and password didn't match. Please, try again.</b>
+            </h2>
+        </center>
+    </legend>
+    {% else %}
+    <legend>
+        <center>
+            <h2 style="font-family: 'Josefin Sans', sans-serif"><b>Please, sign in to your account</b>
+            </h2>
+        </center>
+    </legend>
+    {% endif %}
+    
     <form class="form-horizontal" action="." method="post">
         {% csrf_token %}
         <fieldset>
-            <legend>
-                <center>
-                    <h2 style="font-family: 'Josefin Sans', sans-serif"><b>Please, sign in to your account</b>
-                    </h2>
-                </center>
-            </legend>
+            
             <br>
             <div class="form-group">
                 <label class="col-md-4 control-label">User:</label>  
@@ -33,7 +45,7 @@
             </div>
 
             <center>
-                <button class="btn btn-primary" value="Log-in">Enter</button>
+                <button class="btn btn-default" value="Log-in">Enter</button>
             </center>
         </fieldset>
     </form>

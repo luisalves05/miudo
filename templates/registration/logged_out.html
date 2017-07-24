@@ -1,0 +1,14 @@
+{% extends 'base/header.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Your were logged out successfully</h1>
+            <a href="http://{{ request.get_host }}" class="btn btn-primary
+            btn-lg">Home <span class="glyphicon
+            glyphicon-home"></span></a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
