@@ -1,9 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from shortener.models import Url
+
 
 @login_required
 def dashboard(request):
-    return render(request, 'account/dashboard.html', {'section': 'dashborad'})
+    user = request.user
+    user_urls = Url.objects.filter(url_author = user)
+    return render(request, 'account/dashboard.html', {'section': 'dashborad',
+    'user_urls': user_urls})
 

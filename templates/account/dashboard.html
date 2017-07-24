@@ -3,6 +3,35 @@
 {% block title %} User's Dashborad {% endblock %}
 
 {% block content %}
-    <h1>Dashboard</h1>
-    <p>Welcome to your dashboard: {{ request.user.get_full_name }} </p>
+    <div class="container">
+        <h1>Dashboard</h1>
+        <p>Welcome to your dashboard: {{ request.user.get_full_name }} </p>
+        <table class="table table-hover">
+            <thead>
+                <th>URL Site</th>
+                <th>URL Created</th>
+                <th>URL Visited</th>
+                <th>URL Short</th>
+            </thead>
+            <tbody>
+                <tr> 
+                {% for url in user_urls %}
+                    <th style="font-weight:normal; text-align:center">
+                        <a href="{{ url.url_site }}">{{ url.url_site }}</a>
+                     </th>
+                    <th style="font-weight:normal">{{ url.url_created }}</th>
+                    <th style="font-weight:normal">{{ url.url_clicked }}</th>
+                    <th style="font-weight:normal">
+                        <a href="http://{{ request.get_host}}/{{url.url_id}}">
+                            http://{{ request.get_host}}/{{url.url_id }}</a> 
+                    </th> 
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if not user_urls %}
+            <p style="text-align:center">You don't have any URLs created :(</p>
+        {% endif %}
+    </div>
+    
 {% endblock %}
