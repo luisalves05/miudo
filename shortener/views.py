@@ -14,18 +14,35 @@ def index(request):
 
 def make_url(request):
     if request.method == "POST":
+        
+        url = None # initial url
         url_site = request.POST['url']
-        url_id = str(uuid.uuid4())[0:8]
-        try:
+        url_id = generate_key()
+        
+        try:    
             url = Url.objects.get(url_id = url_id)
             while url:
-                url_id = str(uuid.uuid4())[0:8]
+                url_id = generate_key()
                 url = Url.objects.get(url_id = url_id)
+            create_url(request, url_id, url_site)
+            request.session["has_url"] = url_id
+
         except Url.DoesNotExist:
-            url = Url.objects.create(url_id = url_id, url_site = url_site)
-            url.save()
-            request.session["has_url"] = url.url_id
+            create_url(request, url_id, url_site)
+            request.session["has_url"] = url_id
+
     return HttpResponseRedirect("/")
+
+def create_url(custom_request, url_id, url_site):
+    if custom_request.user.is_authenticated():
+        url = Url.objects.create(url_id = url_id, url_site = url_site,
+                                url_author = custom_request.user)
+    else:
+        url = Url.objects.create(url_id = url_id, url_site = url_site)
+    url.save()
+
+def generate_key():
+    return str(uuid.uuid4())[0:8]
 
 def redirect_url(request, url_id=None):
     try:
