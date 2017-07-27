@@ -1,5 +1,7 @@
 import uuid
 
+from random import sample
+
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
@@ -42,7 +44,9 @@ def create_url(custom_request, url_id, url_site):
     url.save()
 
 def generate_key():
-    return str(uuid.uuid4())[0:8]
+    to_suffle = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    url_id = ''.join(sample(to_suffle, len(to_suffle)))
+    return url_id[0:8]
 
 def redirect_url(request, url_id=None):
     try:
