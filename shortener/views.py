@@ -1,6 +1,6 @@
 import uuid
 
-from random import sample
+from random import randint
 
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -44,9 +44,12 @@ def create_url(custom_request, url_id, url_site):
     url.save()
 
 def generate_key():
-    to_suffle = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    url_id = ''.join(sample(to_suffle, len(to_suffle)))
-    return url_id[0:8]
+    to_choose = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    url_id = ""
+    while len(url_id) != 6:
+        i = randint(0, len(to_choose) - 1)
+        url_id += to_choose[i]
+    return url_id
 
 def redirect_url(request, url_id=None):
     try:
