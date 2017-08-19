@@ -1,5 +1,5 @@
 # ShortenerURL 
-ShortenerURL app developed using Python and Django. Feel free to use it as you want!
+ShortenerURL app developed using Python 3.6.2 and Django 1.11.3. Feel free to use it as you want!
 
 ## Main Page
 ![ShortenerURL Logo](http://i.imgur.com/wtE7yiS.png)
