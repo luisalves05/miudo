@@ -1,17 +1,17 @@
 {% extends 'base/header.html' %}
 
-{% block title %} Welcome to ShortenerURL {% endblock %}
+{% block title %} Welcome to MiudoURL {% endblock %}
 
 {% block content %}
 <div class="col-lg-3"></div>
 <div class="col-lg-6">
-    <h2 style="font-family: 'Josefin Sans', sans-serif" >Welcome to ShortenerURL</h2>
+    <h2 style="font-family: 'Josefin Sans', sans-serif" >Welcome to MiudoURL</h2>
     <form action="make_url/" method="post" data-toggle="validator">
         {% csrf_token %}
         <fieldset>
             <div class="form-group">
                 {% if url %}
-                <p><input type="text" class="form-control" 
+                <p><input type="text" class="form-control"
                         name="url" value={{ request.get_host }}/{{ url}}></p>
                 {% else %}
                     <p><input type="text" class="form-control"
@@ -20,7 +20,7 @@
                 <button type="submit" class="btn btn-default">Generate</button>
             </div>
         </fieldset>
-        
+
     </form>
 </div>
 <div class="col-lg-3"></div>

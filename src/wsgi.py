@@ -1,5 +1,5 @@
 """
-WSGI config for tinyurl project.
+WSGI config for Miudo project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
